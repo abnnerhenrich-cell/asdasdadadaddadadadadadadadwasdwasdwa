@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>PALPITE</title>
+  <style>
+    :root{--bg:#0b1220;--card:#0f1726;--accent:#7b2cff;color:#eef2ff}
+    *{box-sizing:border-box}
+    body{margin:0;height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,#061226 0%, #08152a 100%);font-family:Inter, system-ui, Arial, sans-serif;color:var(--color)}
+    .container{background:var(--card);padding:28px;border-radius:12px;min-width:320px;max-width:420px;text-align:center;box-shadow:0 10px 30px rgba(2,6,23,0.6)}
+    h1{margin:0 0 14px;font-size:20px;color:var(--accent)}
+    .display{font-family:monospace;font-size:48px;background:rgba(255,255,255,0.03);padding:18px;border-radius:10px;margin:12px 0;color:var(--color)}
+    button{background:linear-gradient(90deg,var(--accent),#4b8bff);border:none;padding:12px 18px;border-radius:10px;color:white;font-weight:600;cursor:pointer;font-size:16px}
+    .small{font-size:13px;color:#9fb0d1;margin-top:10px}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>PALPITE</h1>
+    <div id="value" class="display">----</div>
+    <button id="generate">Gerar palpite</button>
+    <div class="small">Clique no botão para gerar uma milhar aleatória (0000–9999).</div>
+  </div>
+
+  <script>
+    const elValue = document.getElementById('value');
+    const btn = document.getElementById('generate');
+
+    function randomMilhar() {
+      // gera 0..9999 e formata com 4 dígitos
+      const n = Math.floor(Math.random() * 10000);
+      return String(n).padStart(4, '0');
+    }
+
+    btn.addEventListener('click', () => {
+      elValue.textContent = randomMilhar();
+      // efeito rápido (opcional)
+      elValue.animate([
+        { transform: 'scale(1)', opacity: 1 },
+        { transform: 'scale(1.08)', opacity: 1 },
+        { transform: 'scale(1)', opacity: 1 }
+      ], { duration: 220, easing: 'ease-out' });
+    });
+
+    // também gera ao pressionar espaço
+    window.addEventListener('keydown', (e) => {
+      if (e.code === 'Space') {
+        e.preventDefault();
+        btn.click();
+      }
+    });
+  </script>
+</body>
+</html>
